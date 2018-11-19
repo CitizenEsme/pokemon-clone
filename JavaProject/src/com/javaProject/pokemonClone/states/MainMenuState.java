@@ -2,11 +2,13 @@ package com.javaProject.pokemonClone.states;
 
 import java.awt.Graphics;
 
+import com.javaProject.pokemonClone.Game;
+
 public class MainMenuState extends State{
 	
 	//Constructor
-	public MainMenuState() {
-		
+	public MainMenuState(Game game) {
+		super(game);
 	}
 
 	@Override

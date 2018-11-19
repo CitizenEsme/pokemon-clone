@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 
 
 import com.javaProject.pokemonClone.display.Display;
+import com.javaProject.pokemonClone.input.KeyManager;
 import com.javaProject.pokemonClone.states.GameState;
 import com.javaProject.pokemonClone.states.MainMenuState;
 import com.javaProject.pokemonClone.states.State;
@@ -30,23 +31,31 @@ public class Game implements Runnable {
 	private State gameState;
 	private State mainMenuState;
 	
+	//Input
+	private KeyManager keyManager;
+	
 	//Constructor
 	public Game(String title, int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.title = title;
+		keyManager = new KeyManager();
 	}
 	
 	private void init() {
 		//Initialize graphics of the game
 		display = new Display(title, width, height);
-		gameState = new GameState();
-		mainMenuState = new MainMenuState();
+		display.getFrame().addKeyListener(keyManager);
+		
+		gameState = new GameState(this);
+		mainMenuState = new MainMenuState(this);
 		State.setState(gameState); 
 	}
 	
 	private void tick() {
 		//Update all variables, positions of objects
+		keyManager.tick();
+		
 		if (State.getState() != null) {
 			State.getState().tick();
 		}
@@ -108,6 +117,10 @@ public class Game implements Runnable {
 		//Stop thread
 		stop();
 		
+	}
+	
+	public KeyManager getKeyManager() {
+		return keyManager;
 	}
 	
 	public synchronized void start() {
