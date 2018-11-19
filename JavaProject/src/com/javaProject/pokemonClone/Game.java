@@ -29,7 +29,7 @@ public class Game implements Runnable {
 	
 	//State
 	private State gameState;
-	private State mainMenuState;
+	//private State mainMenuState;
 	
 	//Input
 	private KeyManager keyManager;
@@ -48,14 +48,14 @@ public class Game implements Runnable {
 		display.getFrame().addKeyListener(keyManager);
 		
 		gameState = new GameState(this);
-		mainMenuState = new MainMenuState(this);
+		//mainMenuState = new MainMenuState(this);
 		State.setState(gameState); 
 	}
-	
+
 	private void tick() {
 		//Update all variables, positions of objects
 		keyManager.tick();
-		
+				
 		if (State.getState() != null) {
 			State.getState().tick();
 		}
@@ -93,6 +93,8 @@ public class Game implements Runnable {
 		double delta = 0;
 		long now;
 		long lastTime = System.nanoTime();
+		
+		//visual representation of frames per second of the game
 		long timer = 0;
 		int ticks = 0;
 		
@@ -100,7 +102,7 @@ public class Game implements Runnable {
 		while (running) {
 			now = System.nanoTime();
 			delta += (now - lastTime) / timePerTick;
-			timer = now - lastTime;
+			timer += now - lastTime;
 			lastTime = now;
 			if (delta >= 1) {
 				tick();
@@ -108,6 +110,8 @@ public class Game implements Runnable {
 				ticks++;
 				delta--;
 			}
+			
+			//visual representation of frames per second of the game
 			if (timer >= 1000000000) {
 				System.out.println("Ticks and Frame: "+ ticks);
 				ticks = 0;

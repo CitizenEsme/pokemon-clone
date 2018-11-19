@@ -21,21 +21,19 @@ public class KeyManager implements KeyListener{
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public void keyPressed(KeyEvent e) {
 		keys[e.getKeyCode()] = true;
 		System.out.println("Pressed");
-		
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		keys[e.getKeyCode()] = false;
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-
+		keys[e.getKeyCode()] = false;
 		
+	}
+	
+	@Override
+	public void keyTyped(KeyEvent e) {
 	}
 
 }
