@@ -5,6 +5,9 @@ import java.awt.image.BufferStrategy;
 
 
 import com.javaProject.pokemonClone.display.Display;
+import com.javaProject.pokemonClone.states.GameState;
+import com.javaProject.pokemonClone.states.MainMenuState;
+import com.javaProject.pokemonClone.states.State;
 
 
 public class Game implements Runnable {
@@ -23,6 +26,10 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics g;
 	
+	//State
+	private State gameState;
+	private State mainMenuState;
+	
 	//Constructor
 	public Game(String title, int width, int height) {
 		this.width = width;
@@ -33,10 +40,16 @@ public class Game implements Runnable {
 	private void init() {
 		//Initialize graphics of the game
 		display = new Display(title, width, height);
+		gameState = new GameState();
+		mainMenuState = new MainMenuState();
+		State.setState(gameState); 
 	}
 	
 	private void tick() {
 		//Update all variables, positions of objects
+		if (State.getState() != null) {
+			State.getState().tick();
+		}
 	}
 	
 	private void render() {
@@ -52,8 +65,10 @@ public class Game implements Runnable {
 		
 		//Draw Here!
 		
+		if (State.getState() != null) {
+			State.getState().render(g);
+		}
 
-		
 		//End drawing!
 		bs.show();
 		g.dispose();
@@ -62,11 +77,33 @@ public class Game implements Runnable {
 	
 	public void run() {
 		init();
+		//Make the game update and render at similar speeds in slow and fast operating systems
+		//frames per second
+		int fps = 60;
+		double timePerTick = 1000000000/fps;
+		double delta = 0;
+		long now;
+		long lastTime = System.nanoTime();
+		long timer = 0;
+		int ticks = 0;
 		
 		//Start game loop to continuously update and render
 		while (running) {
-			tick();
-			render();
+			now = System.nanoTime();
+			delta += (now - lastTime) / timePerTick;
+			timer = now - lastTime;
+			lastTime = now;
+			if (delta >= 1) {
+				tick();
+				render();
+				ticks++;
+				delta--;
+			}
+			if (timer >= 1000000000) {
+				System.out.println("Ticks and Frame: "+ ticks);
+				ticks = 0;
+				timer = 0;
+			}
 		}
 		//Stop thread
 		stop();
