@@ -8,7 +8,7 @@ import com.javaProject.models.GameBoard;
 
 public class MoveAction extends AbstractAction{
 	/*
-	 * Functionality: JButtons react to clicks
+	 * Functionality: Tile buttons react to clicks
 	 */
 	
 	// Fields

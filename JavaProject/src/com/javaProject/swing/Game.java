@@ -11,16 +11,13 @@ public class Game {
 	
 	// Constructor
 	public Game() {
+		
 		// Generate models
 		Player player = new Player(0,0);
 		GameBoard board = new GameBoard(player);
 		
 		// Create visuals
-		GameFrame gameframe = new GameFrame(board);
-//		MenuFrame menuFrame = new MenuFrame();
-//		GUIFrame guiFrame = new GUIFrame();
-		//GUIFrameTest guiFrameTest = new GUIFrameTest();
-
+		GUIFrame guiFrame = new GUIFrame(board);
 	}
 
 }
