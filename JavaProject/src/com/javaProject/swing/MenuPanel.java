@@ -1,7 +1,6 @@
 package com.javaProject.swing;
 
 import java.awt.*;
-
 import javax.swing.*;
 
 
@@ -45,6 +44,7 @@ public class MenuPanel extends JPanel{
 		add(middlePanel);
 		add(bottomPanel);
 	}
+	
 	
 	private JPanel buildTopPanel() {
 		JPanel panel = new JPanel();

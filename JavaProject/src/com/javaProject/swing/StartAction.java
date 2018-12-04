@@ -11,6 +11,7 @@ public class StartAction extends AbstractAction {
 	/*
 	 * Functionality: Start button reacts to click
 	 */
+	
 	// Fields
 	GUIFrame guiFrame;
 	GameBoard board;

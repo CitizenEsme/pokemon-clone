@@ -31,7 +31,6 @@ public class GamePanel extends JPanel implements PropertyChangeListener{
 		this.board = board;
 		
 		
-//		leftPanel = new JPanel();
 		JPanel gamePanel = buildGridPanel();
 		buildGameGrid(gamePanel);
 		add(gamePanel);

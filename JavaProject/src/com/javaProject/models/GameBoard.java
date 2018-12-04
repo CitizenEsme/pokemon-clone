@@ -9,6 +9,8 @@ public class GameBoard{
 	
 	// Fields
 	private Player player;
+//	private LevelGenerator level;
+	
 	private final PropertyChangeSupport pcs;
 	private String errorMessage;
 	
@@ -37,12 +39,14 @@ public class GameBoard{
 		}catch(InvalidMoveException e) {
 			this.errorMessage = "Invalid player position change";
             this.pcs.firePropertyChange("errorMessage", "", this.errorMessage);
-		}
-		
+		}		
 	}
 
 	public Player getPlayer() {
 		return player;
 	}
-	
+
+//	public LevelGenerator getLevel() {
+//		return level;
+//	}
 }

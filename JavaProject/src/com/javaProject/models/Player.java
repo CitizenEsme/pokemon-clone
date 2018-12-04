@@ -44,7 +44,6 @@ public class Player {
 	public Player moveTo(int newRow, int newColumn) throws InvalidMoveException {
 		if (isValidPosition(newRow, newColumn)) {
 			int newEnergyLevel = energyLevel - 10;
-			System.out.println(newEnergyLevel);
 			return (new Player(newRow, newColumn, newEnergyLevel));
 		}
 		throw new InvalidMoveException();
