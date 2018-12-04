@@ -13,7 +13,6 @@ public class GamePanel extends JPanel implements PropertyChangeListener{
 	
 	
 	// Fields
-	private JPanel leftPanel;
 	private JPanel rightPanel;
 	
 	private int rows;

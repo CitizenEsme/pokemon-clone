@@ -3,8 +3,8 @@ package com.javaProject.swing;
 import java.awt.*;
 import java.beans.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
-
 import com.javaProject.models.GameBoard;
 import com.javaProject.models.Player;
 
@@ -43,9 +43,13 @@ public class BoardTile extends JButton implements PropertyChangeListener{
 	
 	private void renderWithPlayer (Player newPosition) {
 		if (newPosition.getRow() == row && newPosition.getColumn() == column) {
-			setBackground(Color.WHITE);
-			setOpaque(true);
-			setBorderPainted(false);
+			try {
+			    Image img = ImageIO.read(getClass().getResource("/30x30player.png"));
+			    setIcon(new ImageIcon(img));
+			    setBorderPainted(false);
+			  } catch (Exception ex) {
+			    System.out.println(ex);
+			  }
 		}else if (isTileVisible(newPosition)){
 			setBackground(Color.DARK_GRAY);
 			setOpaque(true);

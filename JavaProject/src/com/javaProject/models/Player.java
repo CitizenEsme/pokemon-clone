@@ -1,4 +1,3 @@
-
 package com.javaProject.models;
 
 public class Player {

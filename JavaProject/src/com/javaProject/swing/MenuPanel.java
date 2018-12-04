@@ -1,7 +1,12 @@
 package com.javaProject.swing;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
+
+import com.javaProject.models.GameBoard;
 
 
 public class MenuPanel extends JPanel{
@@ -25,15 +30,19 @@ public class MenuPanel extends JPanel{
 	private JComponent spinner;
 	
 	private JButton startButton;
+	private GameBoard board;
+	private GUIFrame guiFrame;
 	
-	private StartAction startAction;
+//	private StartAction startAction;
 
 	
 	// Constructor
-	public MenuPanel() {
+	public MenuPanel(GUIFrame guiFrame, GameBoard board) {
 		setLayout(new GridLayout(3,1));
 		
-		startAction = new StartAction("Start");
+		this.board = board;
+		this.guiFrame = guiFrame;
+//		startAction = new StartAction("Start");
 		
 		topPanel = buildTopPanel();
 		middlePanel = buildMiddlePanel();	
@@ -79,8 +88,15 @@ public class MenuPanel extends JPanel{
 		return panel;
 	}
 	
-	private JButton buildStartButton() {
-		startButton = new JButton(startAction);
+	private JButton buildStartButton(){
+//		startButton = new JButton(startAction);
+		startButton = new JButton("Start");
+		startButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				guiFrame.switchPanels();
+			}	
+		});
 		startButton.setPreferredSize(new Dimension(100, 50));
 		return startButton;
 	}

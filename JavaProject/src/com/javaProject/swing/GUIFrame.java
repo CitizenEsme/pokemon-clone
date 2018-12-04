@@ -30,7 +30,7 @@ public class GUIFrame extends JFrame{
 		cards = new JPanel(new CardLayout());
 		getContentPane().add(cards, BorderLayout.CENTER);
 		
-		menuPanel = new MenuPanel();
+		menuPanel = new MenuPanel(this, board);
 		gamePanel = new GamePanel(board);
 		
 		cards.add(menuPanel, MENUSCREEN);
