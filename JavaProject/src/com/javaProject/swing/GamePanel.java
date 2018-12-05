@@ -19,6 +19,7 @@ public class GamePanel extends JPanel implements PropertyChangeListener{
 	private int columns;
 	private JLabel energyLevel;
 	private JLabel pokemon;
+	private JButton score;
 	private BoardTile tile;
 	private GameBoard board;
 	
@@ -36,11 +37,15 @@ public class GamePanel extends JPanel implements PropertyChangeListener{
 		
 		
 		rightPanel = new JPanel();
-		rightPanel.setLayout(new GridLayout (2,1));
-		energyLevel = new JLabel("Energy Level:" + board.getPlayer().getEnergyLevel());
+		rightPanel.setLayout(new GridLayout (3,1));
+		energyLevel = new JLabel("Energy Level: " + board.getPlayer().getEnergyLevel());
 		rightPanel.add(energyLevel);
-		pokemon = new JLabel("Pokemon:" + board.getPlayer().getPokemonAmount());
+		pokemon = new JLabel("Pokemon: " + board.getPlayer().getPokemonAmount());
 		rightPanel.add(pokemon);
+		
+		score = new JButton("Score: " + board.getPlayer().getPokemonAmount());
+		rightPanel.add(score);
+		
 		add(rightPanel);
 		
 		board.addPropertyChangeListener(this);
