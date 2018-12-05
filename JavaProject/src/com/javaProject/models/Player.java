@@ -50,9 +50,9 @@ public class Player {
 	}
 	
 	private boolean isValidPosition(int newRow, int newColumn) {
-		if (Math.abs(newRow - row) > 1) {
+		if (Math.abs(newRow - row) != 1) {
 			return false;
-		}else if (Math.abs(newColumn - column) > 1) {
+		}else if (Math.abs(newColumn - column) != 1) {
 			return false;
 		}	
 		return true;
