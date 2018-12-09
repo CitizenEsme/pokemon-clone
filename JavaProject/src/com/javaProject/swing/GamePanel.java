@@ -39,12 +39,12 @@ public class GamePanel extends JPanel implements PropertyChangeListener{
 		
 		rightPanel = new JPanel();
 		rightPanel.setLayout(new GridLayout (3,1));
-		energyLevel = new JLabel("Energy Level:" + board.getPlayer().getEnergyLevel());
+		energyLevel = new JLabel("Energy Level: " + board.getPlayer().getEnergyLevel());
 		rightPanel.add(energyLevel);
-		pokemon = new JLabel("Pokemon:" + board.getPlayer().getPokemonAmount());
+		pokemon = new JLabel("Pokemon: " + board.getPlayer().getPokemonAmount());
 		rightPanel.add(pokemon);
 		
-		score = new JButton("Score" + board.getPlayer().getPokemonAmount());
+		score = new JButton("Score: " + board.getPlayer().getPokemonAmount());
 		rightPanel.add(score);
 		
 		add(rightPanel);

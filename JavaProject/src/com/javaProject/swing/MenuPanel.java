@@ -55,7 +55,8 @@ public class MenuPanel extends JPanel{
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(5,1));
 		
-		mainText = new JLabel("Game Description");
+
+		mainText = new JLabel("  Game Description");
 		description1 = new JLabel("- Try to find all the pokemons");
 		description2 = new JLabel("- Avoid the sinkhole otherwise the game ends");
 		description3 = new JLabel("- Move the player by clicking the tiles");
@@ -67,6 +68,7 @@ public class MenuPanel extends JPanel{
 		panel.add(description3);
 		panel.add(description4);
 		panel.setBorder(BorderFactory.createEmptyBorder(40, 180, 40, 180));
+
 		
 		return panel;
 	}
@@ -82,6 +84,7 @@ public class MenuPanel extends JPanel{
 		panel.add(spinnerTitle);
 		panel.add(spinner);
 		panel.setBorder(BorderFactory.createEmptyBorder(40, 180, 40, 180));
+
 		
 		return panel;
 	}

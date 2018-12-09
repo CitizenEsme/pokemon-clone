@@ -60,6 +60,7 @@ public class Player {
 		if (Math.abs(newRow - row) != 1 && Math.abs(newColumn - column) != 1) {
 			return false;
 		}
+
 		return true;
 	}
 
