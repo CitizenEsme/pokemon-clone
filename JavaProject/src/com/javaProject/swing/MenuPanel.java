@@ -1,12 +1,11 @@
 package com.javaProject.swing;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 import javax.swing.*;
 
-import com.javaProject.models.GameBoard;
+import com.javaProject.models.LevelGenerator;
 
 
 public class MenuPanel extends JPanel{
@@ -30,19 +29,16 @@ public class MenuPanel extends JPanel{
 	private JComponent spinner;
 	
 	private JButton startButton;
-	private GameBoard board;
+	private LevelGenerator levelGenerator;
 	private GUIFrame guiFrame;
-	
-//	private StartAction startAction;
 
 	
 	// Constructor
-	public MenuPanel(GUIFrame guiFrame, GameBoard board) {
+	public MenuPanel(GUIFrame guiFrame, LevelGenerator levelGenerator) {
 		setLayout(new GridLayout(3,1));
 		
-		this.board = board;
+		this.levelGenerator = levelGenerator;
 		this.guiFrame = guiFrame;
-//		startAction = new StartAction("Start");
 		
 		topPanel = buildTopPanel();
 		middlePanel = buildMiddlePanel();	
@@ -60,16 +56,17 @@ public class MenuPanel extends JPanel{
 		panel.setLayout(new GridLayout(5,1));
 		
 		mainText = new JLabel("Game Description");
-		description1 = new JLabel("Try to find all the pokemons");
-		description2 = new JLabel("Avoid the sinkhole otherwise the game ends");
-		description3 = new JLabel("Move the player by clicking the tiles");
-		description4 = new JLabel("Choose a level then click start!");
+		description1 = new JLabel("- Try to find all the pokemons");
+		description2 = new JLabel("- Avoid the sinkhole otherwise the game ends");
+		description3 = new JLabel("- Move the player by clicking the tiles");
+		description4 = new JLabel("- Choose a level then click start!");
 		
 		panel.add(mainText);
 		panel.add(description1);
 		panel.add(description2);
 		panel.add(description3);
 		panel.add(description4);
+		panel.setBorder(BorderFactory.createEmptyBorder(40, 180, 40, 180));
 		
 		return panel;
 	}
@@ -84,21 +81,21 @@ public class MenuPanel extends JPanel{
 		
 		panel.add(spinnerTitle);
 		panel.add(spinner);
+		panel.setBorder(BorderFactory.createEmptyBorder(40, 180, 40, 180));
 		
 		return panel;
 	}
 	
 	private JButton buildStartButton(){
-//		startButton = new JButton(startAction);
 		startButton = new JButton("Start");
 		startButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				levelGenerator.setDifficulty((int)model1.getValue());
 				guiFrame.switchPanels();
 			}	
 		});
 		startButton.setPreferredSize(new Dimension(100, 50));
 		return startButton;
 	}
-
 }

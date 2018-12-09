@@ -6,7 +6,9 @@ import java.beans.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import com.javaProject.models.GameBoard;
+import com.javaProject.models.Pikachu;
 import com.javaProject.models.Player;
+import com.javaProject.models.Sinkhole;
 
 
 public class BoardTile extends JButton implements PropertyChangeListener{
@@ -17,6 +19,7 @@ public class BoardTile extends JButton implements PropertyChangeListener{
 	// Fields
 	private int row;
 	private int column;
+	private boolean playerInvalidPosition = false;
 
 	
 	// Constructor
@@ -30,6 +33,7 @@ public class BoardTile extends JButton implements PropertyChangeListener{
 		board.addPropertyChangeListener(this);	
 		
 		this.renderWithPlayer(board.getPlayer());
+		this.renderWithNoneMovingObjects(board.getPikachu(), board.getSinkHole());
 	}
 
 	@Override
@@ -43,23 +47,53 @@ public class BoardTile extends JButton implements PropertyChangeListener{
 	
 	private void renderWithPlayer (Player newPosition) {
 		if (newPosition.getRow() == row && newPosition.getColumn() == column) {
+			if (playerInvalidPosition == false) {
+				try {
+				    Image img = ImageIO.read(getClass().getResource("/30x30player.png"));
+				    setIcon(new ImageIcon(img));
+				    setBorderPainted(false);
+				}catch (Exception ex) {
+				    System.out.println(ex);
+				}
+			}
+		}else if (isTileVisible(newPosition)){
+//			setIcon(null);
+//			setOpaque(true);
+//			setBorderPainted(true);
+		}else {
+//			setIcon(null);
+//			setBackground(Color.DARK_GRAY);
+//			setOpaque(true);
+//			setBorderPainted(false);
+
+		}
+	}
+	
+	private void renderWithNoneMovingObjects(Pikachu pikachuPosition, Sinkhole sinkholePosition) {
+		if (pikachuPosition.getRow() == row && pikachuPosition.getColumn() == column) {
+			playerInvalidPosition = true;
 			try {
-			    Image img = ImageIO.read(getClass().getResource("/30x30player.png"));
-			    setIcon(new ImageIcon(img));
+			    Image img2 = ImageIO.read(getClass().getResource("/Pikachu.png"));
+			    setIcon(new ImageIcon(img2));
 			    setBorderPainted(false);
 			  } catch (Exception ex) {
 			    System.out.println(ex);
 			  }
-		}else if (isTileVisible(newPosition)){
-			setBackground(Color.DARK_GRAY);
-			setOpaque(true);
-			setBorderPainted(false);
-		}else {
-			setOpaque(true);
-			setBorderPainted(true);
-
+		}
+		
+		if (sinkholePosition.getRow() == row && sinkholePosition.getColumn() == column) {
+			playerInvalidPosition = true;
+			try {
+			    Image img3 = ImageIO.read(getClass().getResource("/sinkhole.png"));
+			    setIcon(new ImageIcon(img3));
+			    setBorderPainted(false);
+			  } catch (Exception ex) {
+			    System.out.println(ex);
+			  }
 		}
 	}
+	
+
 	
 	private boolean isTileVisible(Player player) {
 		int rowDifference = Math.abs(player.getRow() - row);

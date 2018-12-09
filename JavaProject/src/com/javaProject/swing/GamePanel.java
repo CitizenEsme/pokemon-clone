@@ -3,6 +3,7 @@ package com.javaProject.swing;
 import java.awt.GridLayout;
 import java.beans.*;
 import javax.swing.*;
+
 import com.javaProject.models.GameBoard;
 import com.javaProject.models.Player;
 
@@ -19,16 +20,17 @@ public class GamePanel extends JPanel implements PropertyChangeListener{
 	private int columns;
 	private JLabel energyLevel;
 	private JLabel pokemon;
+	private JButton score;
 	private BoardTile tile;
 	private GameBoard board;
 	
 	
 	// Constructor
 	public GamePanel(GameBoard board) {
-		this.rows = 10;
-		this.columns =10;
 		this.board = board;
-		
+		this.rows = board.getLevelRows();
+		this.columns = board.getLevelColumns();
+
 		
 		JPanel gamePanel = buildGridPanel();
 		buildGameGrid(gamePanel);
@@ -36,11 +38,15 @@ public class GamePanel extends JPanel implements PropertyChangeListener{
 		
 		
 		rightPanel = new JPanel();
-		rightPanel.setLayout(new GridLayout (2,1));
+		rightPanel.setLayout(new GridLayout (3,1));
 		energyLevel = new JLabel("Energy Level:" + board.getPlayer().getEnergyLevel());
 		rightPanel.add(energyLevel);
 		pokemon = new JLabel("Pokemon:" + board.getPlayer().getPokemonAmount());
 		rightPanel.add(pokemon);
+		
+		score = new JButton("Score" + board.getPlayer().getPokemonAmount());
+		rightPanel.add(score);
+		
 		add(rightPanel);
 		
 		board.addPropertyChangeListener(this);
@@ -66,7 +72,8 @@ public class GamePanel extends JPanel implements PropertyChangeListener{
 
 		return tile;
 	}
-
+	
+	// Event listener
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName() == "errorMessage") {
@@ -79,5 +86,6 @@ public class GamePanel extends JPanel implements PropertyChangeListener{
 			Player updatedPlayer = (Player) evt.getNewValue();
 			energyLevel.setText("Energy Level:" + updatedPlayer.getEnergyLevel());
 		}
+
 	}
 }

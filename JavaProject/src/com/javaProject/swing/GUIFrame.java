@@ -1,11 +1,10 @@
 package com.javaProject.swing;
 
 import java.awt.*;
-import java.awt.event.*;
 
 import javax.swing.*;
 
-import com.javaProject.models.GameBoard;
+import com.javaProject.models.LevelGenerator;
 
 
 public class GUIFrame extends JFrame{
@@ -20,9 +19,12 @@ public class GUIFrame extends JFrame{
 	 private JPanel cards;
 	 private MenuPanel menuPanel;
 	 private GamePanel gamePanel;
+	 private LevelGenerator generator;
 	
+	 
 	// Constructor
-	public GUIFrame(GameBoard board) {
+	public GUIFrame(LevelGenerator generator){
+		this.generator = generator;
 		
 		setTitle("Pokemon");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,21 +32,19 @@ public class GUIFrame extends JFrame{
 		cards = new JPanel(new CardLayout());
 		getContentPane().add(cards, BorderLayout.CENTER);
 		
-		menuPanel = new MenuPanel(this, board);
-		gamePanel = new GamePanel(board);
-		
+		menuPanel = new MenuPanel(this, generator);
 		cards.add(menuPanel, MENUSCREEN);
-		cards.add(gamePanel, GAMESCREEN);
-		
 		
 		pack();
 		setVisible(true);
-		
 	}
 	
-	public void switchPanels() {
+	
+	public void switchPanels(){
+		gamePanel = new GamePanel(generator.getGameBoard());
+		cards.add(gamePanel, GAMESCREEN);
+		
 		CardLayout cl = (CardLayout)(cards.getLayout());
 		cl.show(cards, GAMESCREEN);
 	}
-
 }

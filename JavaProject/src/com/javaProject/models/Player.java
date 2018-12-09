@@ -1,5 +1,6 @@
 package com.javaProject.models;
 
+
 public class Player {
 	/*
 	 * Functionality: Creates player
@@ -13,8 +14,9 @@ public class Player {
 	
 	
 	// Constructors
-	public Player(int row, int column) {
-		this(row, column, 100);	
+	public Player (int row, int column) {
+		this.row = row;
+		this.column = column;
 	}
 	
 	public Player(int row, int column, int energyLevel) {
@@ -50,11 +52,14 @@ public class Player {
 	}
 	
 	private boolean isValidPosition(int newRow, int newColumn) {
-		if (Math.abs(newRow - row) > 1) {
+//		if (Math.abs(newRow - row) > 1) {
+//			return false;
+//		}else if (Math.abs(newColumn - column) > 1) {
+//			return false;
+//		}	
+		if (Math.abs(newRow - row) != 1 && Math.abs(newColumn - column) != 1) {
 			return false;
-		}else if (Math.abs(newColumn - column) > 1) {
-			return false;
-		}	
+		}
 		return true;
 	}
 
