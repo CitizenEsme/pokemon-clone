@@ -54,7 +54,6 @@ public class LevelGenerator {
 			pikachuPosition.add(pikachuColumn);
 			
 			if (pikachuPosition.equals(playerPosition)) {
-				System.out.println("Here");
 				p=- 1;
 			}else {
 				newGameBoard.addPikachu(new Pikachu(pikachuRow, pikachuColumn));

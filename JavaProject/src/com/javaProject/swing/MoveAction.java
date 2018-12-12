@@ -26,6 +26,7 @@ public class MoveAction extends AbstractAction{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		board.movePlayer(row, column);
+//		board.move(board.getPlayer()).to(row, column);
 	}
 
 }

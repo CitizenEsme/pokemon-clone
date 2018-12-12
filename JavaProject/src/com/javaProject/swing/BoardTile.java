@@ -2,6 +2,7 @@ package com.javaProject.swing;
 
 import java.awt.*;
 import java.beans.*;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -19,7 +20,8 @@ public class BoardTile extends JButton implements PropertyChangeListener{
 	// Fields
 	private int row;
 	private int column;
-	private boolean playerInvalidPosition = false;
+	private boolean iconIsVisible = false;
+
 
 	
 	// Constructor
@@ -33,7 +35,7 @@ public class BoardTile extends JButton implements PropertyChangeListener{
 		board.addPropertyChangeListener(this);	
 		
 		this.renderWithPlayer(board.getPlayer());
-		this.renderWithNoneMovingObjects(board.getPikachu(), board.getSinkHole());
+		this.renderWithNoneMovingObjects(board.getPikachuList(), board.getSinkholeList());
 	}
 
 	@Override
@@ -45,55 +47,53 @@ public class BoardTile extends JButton implements PropertyChangeListener{
 		}
 	}
 	
-	private void renderWithPlayer (Player newPosition) {
-		if (newPosition.getRow() == row && newPosition.getColumn() == column) {
-			if (playerInvalidPosition == false) {
-				try {
-				    Image img = ImageIO.read(getClass().getResource("/30x30player.png"));
-				    setIcon(new ImageIcon(img));
-				    setBorderPainted(false);
-				}catch (Exception ex) {
-				    System.out.println(ex);
+	private void renderWithPlayer (Player position) {
+		if (position.getRow() == row && position.getColumn() == column) {
+			try {
+				Image img = ImageIO.read(getClass().getResource("/30x30player.png"));
+				setIcon(new ImageIcon(img));
+//				setBorderPainted(false);
+			}catch(Exception ex) {
+				System.out.println(ex);
+			}
+		} else if(position.getPriorRow() == row && position.getPriorColumn() == column) {
+			setIcon(null);
+		}else if (isTileVisible(position)) {
+			iconIsVisible = true;
+		}else {
+			iconIsVisible = false;
+		}
+	}
+
+	
+	private void renderWithNoneMovingObjects(ArrayList<Pikachu> pikachuList, ArrayList<Sinkhole> sinkholeList) {
+		for (Pikachu pikachu:pikachuList) {
+			if (pikachu.getRow() == row && pikachu.getColumn() == column) {
+				if (iconIsVisible == true) {
+					try {
+					    Image img2 = ImageIO.read(getClass().getResource("/Pikachu.png"));
+					    setIcon(new ImageIcon(img2));
+					    setBorderPainted(false);
+					  } catch (Exception ex) {
+					    System.out.println(ex);
+					}
 				}
 			}
-		}else if (isTileVisible(newPosition)){
-//			setIcon(null);
-//			setOpaque(true);
-//			setBorderPainted(true);
-		}else {
-//			setIcon(null);
-//			setBackground(Color.DARK_GRAY);
-//			setOpaque(true);
-//			setBorderPainted(false);
-
 		}
-	}
-	
-	private void renderWithNoneMovingObjects(Pikachu pikachuPosition, Sinkhole sinkholePosition) {
-		if (pikachuPosition.getRow() == row && pikachuPosition.getColumn() == column) {
-			playerInvalidPosition = true;
-			try {
-			    Image img2 = ImageIO.read(getClass().getResource("/Pikachu.png"));
-			    setIcon(new ImageIcon(img2));
-			    setBorderPainted(false);
-			  } catch (Exception ex) {
-			    System.out.println(ex);
-			  }
+		for (Sinkhole sinkhole:sinkholeList) {
+			if (sinkhole.getRow() == row && sinkhole.getColumn() == column) {
+				if (iconIsVisible == true) {
+					try {
+					    Image img3 = ImageIO.read(getClass().getResource("/sinkhole.png"));
+					    setIcon(new ImageIcon(img3));
+					    setBorderPainted(false);
+					  } catch (Exception ex) {
+					    System.out.println(ex);
+					  }
+				}
+			}
 		}
-		
-		if (sinkholePosition.getRow() == row && sinkholePosition.getColumn() == column) {
-			playerInvalidPosition = true;
-			try {
-			    Image img3 = ImageIO.read(getClass().getResource("/sinkhole.png"));
-			    setIcon(new ImageIcon(img3));
-			    setBorderPainted(false);
-			  } catch (Exception ex) {
-			    System.out.println(ex);
-			  }
-		}
-	}
-	
-
+	}	
 	
 	private boolean isTileVisible(Player player) {
 		int rowDifference = Math.abs(player.getRow() - row);

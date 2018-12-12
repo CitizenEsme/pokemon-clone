@@ -1,6 +1,7 @@
 package com.javaProject.models;
 
 import java.beans.*;
+import java.util.ArrayList;
 
 public class GameBoard{
 	/*
@@ -12,8 +13,11 @@ public class GameBoard{
 	private int levelColumns;
 	
 	private Player newPlayer;
-	private Sinkhole newSinkhole;
-	private Pikachu newPikachu;
+//	private Player oldPlayer;
+	private ArrayList <Sinkhole> sinkholeList;
+	private ArrayList <Pikachu> pikachuList;
+	
+
 
 	private final PropertyChangeSupport pcs;
 	private String errorMessage;
@@ -23,6 +27,8 @@ public class GameBoard{
 	public GameBoard(int levelRows, int levelColumns) {
 		this.levelRows = levelRows;
 		this.levelColumns = levelColumns;
+		this.pikachuList = new ArrayList<>();
+		this.sinkholeList = new ArrayList<>();
 		
 		this.pcs = new PropertyChangeSupport(this);
 	}
@@ -36,10 +42,20 @@ public class GameBoard{
         this.pcs.removePropertyChangeListener(listener);
     }
 	    
+//    public void move(MovableInterface somethingOnTheBoard) {
+//    	if (this.hasPositionFor(somethingOnTheBoard)) {
+//    		return this.getPositionFor(somethingOnTheBoard);
+//    	}
+//    	
+//    	this.setPositionFor(somethingontheboard, new Position());
+//    	
+//    	return this.getPositionFor(somethingontheboard):
+//    }
  
 	public void movePlayer(int row, int column) {
 		try {
 			Player oldPlayer = newPlayer;
+//			oldPlayer = newPlayer;
 			newPlayer = newPlayer.moveTo(row, column);
 			this.pcs.firePropertyChange("player", oldPlayer, newPlayer);
 			
@@ -50,15 +66,15 @@ public class GameBoard{
 	}
 	
 	public void addPlayer(Player newPlayer) {
-		this.newPlayer = newPlayer;
+		this.newPlayer = newPlayer;		
 	}
 	
 	public void addPikachu(Pikachu newPikachu) {
-		this.newPikachu = newPikachu;
+		pikachuList.add(newPikachu);
 	}
-	
+
 	public void addSinkhole(Sinkhole newSinkhole) {
-		this.newSinkhole = newSinkhole;
+		sinkholeList.add(newSinkhole);
 	}
 	
 
@@ -66,14 +82,11 @@ public class GameBoard{
 	public Player getPlayer() {
 		return newPlayer;
 	}
+	
+//	public Player getOldPlayer() {
+//		return oldPlayer;
+//	}
 
-	public Sinkhole getSinkHole() {
-		return newSinkhole;
-	}
-
-	public Pikachu getPikachu() {
-		return newPikachu;
-	}
 
 	public int getLevelRows() {
 		return levelRows;
@@ -81,6 +94,14 @@ public class GameBoard{
 
 	public int getLevelColumns() {
 		return levelColumns;
+	}
+	
+	public ArrayList<Pikachu> getPikachuList() {
+		return pikachuList;
+	}
+
+	public ArrayList<Sinkhole> getSinkholeList() {
+		return sinkholeList;
 	}
 	
 }

@@ -9,6 +9,7 @@ public class Pikachu {
 	// Fields
 	private int row;
 	private int column;
+
 		
 		
 	// Constructors
