@@ -76,13 +76,6 @@ public class GamePanel extends JPanel implements PropertyChangeListener{
 		return tile;
 	}
 	
-	//TEST
-//	private BoardTileJToggleButton buildGameTile(int row, int column) {
-//		tile = new BoardTileJToggleButton(board, row, column);
-//		return tile;
-//	}
-	//TESTENDS
-	
 	// Event listener
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {

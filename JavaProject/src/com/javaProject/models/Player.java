@@ -33,29 +33,39 @@ public class Player {
 		this.priorColumn = priorColumn;
 	}
 	
-	//Getters
+	
+	// Getters
 	public int getRow() {
 		return row;
 	}
-
 	public int getColumn() {
 		return column;
 	}
-	
 	public int getEnergyLevel() {
 		return energyLevel;
 	}
 	public int getPokemonAmount() {
 		return pokemonAmount;
 	}
-	
 	public int getPriorRow() {
 		return priorRow;
 	}
-
 	public int getPriorColumn() {
 		return priorColumn;
 	}
+	
+	
+	// Setters
+	public void setRow(int row) {
+		this.row = row;
+	}
+	public void setColumn(int column) {
+		this.column = column;
+	}
+	public void setEnergyLevel(int energyLevel) {
+		this.energyLevel = energyLevel;
+	}
+	
 
 	// Player movement
 	public Player moveTo(int newRow, int newColumn) throws InvalidMoveException {
@@ -67,6 +77,7 @@ public class Player {
 		
 	}
 	
+
 	private boolean isValidPosition(int newRow, int newColumn) {
  	
 		if (Math.abs(newRow - row) != 1 && Math.abs(newColumn - column) != 1) {

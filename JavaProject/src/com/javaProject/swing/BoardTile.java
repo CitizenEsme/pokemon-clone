@@ -20,8 +20,6 @@ public class BoardTile extends JButton implements PropertyChangeListener{
 	// Fields
 	private int row;
 	private int column;
-	private boolean iconIsVisible = false;
-
 
 	
 	// Constructor
@@ -32,10 +30,39 @@ public class BoardTile extends JButton implements PropertyChangeListener{
 
 		setPreferredSize(new Dimension(30,30));
 		
-		board.addPropertyChangeListener(this);	
+		board.addPropertyChangeListener(this);
 		
-		this.renderWithPlayer(board.getPlayer());
-		this.renderWithNoneMovingObjects(board.getPikachuList(), board.getSinkholeList());
+		addInmobileObjects(board.getPikachuList(), board.getSinkholeList());
+		
+		renderWithPlayer(board.getPlayer());
+	}
+	
+	
+	
+	public void addInmobileObjects(ArrayList<Pikachu> pikachuList, ArrayList<Sinkhole> sinkholeList) {
+		for (Pikachu pikachu:pikachuList) {
+			if (pikachu.getRow() == row && pikachu.getColumn() == column) {
+				try {
+					Image img2 = ImageIO.read(getClass().getResource("/Pikachu.png"));
+				    setIcon(new ImageIcon(img2));
+				    
+				    setBorderPainted(false);
+				  } catch (Exception ex) {
+				    System.out.println(ex);
+				}
+			}
+		}
+		for (Sinkhole sinkhole:sinkholeList) {
+			if (sinkhole.getRow() == row && sinkhole.getColumn() == column) {
+				try {
+				    Image img3 = ImageIO.read(getClass().getResource("/sinkhole.png"));
+				    setIcon(new ImageIcon(img3));
+				    setBorderPainted(false);
+				  } catch (Exception ex) {
+				    System.out.println(ex);
+				  }
+			}
+		}
 	}
 
 	@Override
@@ -56,42 +83,14 @@ public class BoardTile extends JButton implements PropertyChangeListener{
 			}catch(Exception ex) {
 				System.out.println(ex);
 			}
-		} else if(position.getPriorRow() == row && position.getPriorColumn() == column) {
+		}else if(position.getPriorRow() == row && position.getPriorColumn() == column) {
 			setIcon(null);
 		}else if (isTileVisible(position)) {
-			iconIsVisible = true;
+			setBackground(null);
 		}else {
-			iconIsVisible = false;
-		}
-	}
-
-	
-	private void renderWithNoneMovingObjects(ArrayList<Pikachu> pikachuList, ArrayList<Sinkhole> sinkholeList) {
-		for (Pikachu pikachu:pikachuList) {
-			if (pikachu.getRow() == row && pikachu.getColumn() == column) {
-				if (iconIsVisible == true) {
-					try {
-					    Image img2 = ImageIO.read(getClass().getResource("/Pikachu.png"));
-					    setIcon(new ImageIcon(img2));
-					    setBorderPainted(false);
-					  } catch (Exception ex) {
-					    System.out.println(ex);
-					}
-				}
-			}
-		}
-		for (Sinkhole sinkhole:sinkholeList) {
-			if (sinkhole.getRow() == row && sinkhole.getColumn() == column) {
-				if (iconIsVisible == true) {
-					try {
-					    Image img3 = ImageIO.read(getClass().getResource("/sinkhole.png"));
-					    setIcon(new ImageIcon(img3));
-					    setBorderPainted(false);
-					  } catch (Exception ex) {
-					    System.out.println(ex);
-					  }
-				}
-			}
+			setBackground(Color.DARK_GRAY);
+			setOpaque(true);
+			setBorderPainted(false);
 		}
 	}	
 	

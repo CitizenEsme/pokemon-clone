@@ -8,17 +8,16 @@ public class GameBoard{
 	 *  Functionality: track board, player status
 	 */
 	
+	
 	// Fields
 	private int levelRows;
 	private int levelColumns;
 	
-	private Player newPlayer;
-//	private Player oldPlayer;
+	private Player player; 
+	private Position playerPosition;
 	private ArrayList <Sinkhole> sinkholeList;
 	private ArrayList <Pikachu> pikachuList;
 	
-
-
 	private final PropertyChangeSupport pcs;
 	private String errorMessage;
 	
@@ -34,6 +33,7 @@ public class GameBoard{
 	}
 	
 	
+	// Observable properties
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
         this.pcs.addPropertyChangeListener(listener);
     }
@@ -54,10 +54,10 @@ public class GameBoard{
  
 	public void movePlayer(int row, int column) {
 		try {
-			Player oldPlayer = newPlayer;
+			Player oldPlayer = player;
 //			oldPlayer = newPlayer;
-			newPlayer = newPlayer.moveTo(row, column);
-			this.pcs.firePropertyChange("player", oldPlayer, newPlayer);
+			player = player.moveTo(row, column);
+			this.pcs.firePropertyChange("player", oldPlayer, player);
 			
 		}catch(InvalidMoveException e) {
 			this.errorMessage = "Invalid player position change";
@@ -65,8 +65,12 @@ public class GameBoard{
 		}		
 	}
 	
-	public void addPlayer(Player newPlayer) {
-		this.newPlayer = newPlayer;		
+	// Stores Objects in GameBoard
+	public Position addPlayer(Player newPlayer) {
+		this.player = newPlayer;		
+		this.playerPosition = new Position(0, 0);
+		
+		return this.playerPosition;
 	}
 	
 	public void addPikachu(Pikachu newPikachu) {
@@ -77,16 +81,52 @@ public class GameBoard{
 		sinkholeList.add(newSinkhole);
 	}
 	
-
-	// Getters
-	public Player getPlayer() {
-		return newPlayer;
+	// Player movement
+//	public void move(Player player) {
+//		newPlayer;	
+//	}
+	public void moveto(int newRow, int newColumn) throws InvalidMoveException{
+		if (isValidPosition(newRow, newColumn)) {
+			int oldEnergyLevel = player.getEnergyLevel();
+			player.setEnergyLevel(oldEnergyLevel-10);
+			player.setRow(newRow);
+			player.setColumn(newColumn);
+		}else {
+			throw new InvalidMoveException();
+		}	
 	}
 	
-//	public Player getOldPlayer() {
-//		return oldPlayer;
+	public void firePlayerMovement () {
+		try {
+			Player oldPlayer = player;
+//			oldPlayer = newPlayer;
+//			newPlayer = newPlayer;
+			this.pcs.firePropertyChange("player", oldPlayer, player);
+
+		}catch(InvalidMoveException e) {
+			this.errorMessage = "Invalid player position change";
+            this.pcs.firePropertyChange("errorMessage", "", this.errorMessage);
+		}
+	}
+	private boolean isValidPosition(int newRow, int newColumn) {
+		if (Math.abs(newRow - player.getRow()) != 1 && Math.abs(newColumn - player.getColumn()) != 1) {
+			return false;
+		}
+		return true;
+	}
+//	public Player moveTo(int newRow, int newColumn) throws InvalidMoveException {
+//		if (isValidPosition(newRow, newColumn)) {
+//			int newEnergyLevel = energyLevel - 10;
+//			return (new Player(newRow, newColumn, newEnergyLevel, this.priorRow, this.priorColumn));
+//		}
+//		throw new InvalidMoveException();	
 //	}
 
+	
+	// Getters
+	public Player getPlayer() {
+		return player;
+	}
 
 	public int getLevelRows() {
 		return levelRows;
