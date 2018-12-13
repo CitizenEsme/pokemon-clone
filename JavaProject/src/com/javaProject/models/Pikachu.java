@@ -1,29 +1,14 @@
 package com.javaProject.models;
 
 
-public class Pikachu {
+public class Pikachu implements CollectableInterface {
 	/*
-	 * Functionality: Creates enemy
+	 * Functionality: Creates reward
 	 */
-	
-	// Fields
-	private int row;
-	private int column;
-
-		
 		
 	// Constructors
-	public Pikachu(int row, int column) {
-		this.row = row;
-		this.column = column;
+	public Pikachu() {
+		
 	}
 
-	// Getters
-	public int getRow() {
-		return row;
-	}
-
-	public int getColumn() {
-		return column;
-	}
 }

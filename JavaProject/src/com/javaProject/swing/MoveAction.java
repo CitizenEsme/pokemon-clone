@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import com.javaProject.models.GameBoard;
+import com.javaProject.models.Position;
 
 public class MoveAction extends AbstractAction{
 	/*
@@ -25,8 +26,7 @@ public class MoveAction extends AbstractAction{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-//		board.movePlayer(row, column);
-		board.move(board.getPlayer()).to(row, column);
+		board.move(board.getPlayer(), new Position(row, column));
 	}
 
 }

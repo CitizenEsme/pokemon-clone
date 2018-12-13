@@ -43,7 +43,7 @@ public class LevelGenerator {
 		playerPosition.add(playerRow);
 		playerPosition.add(playerColumn);
 		
-		newGameBoard.addPlayer(new Player(playerRow, playerColumn));
+		newGameBoard.addPlayer(new Player(), new Position(playerRow, playerColumn));
 		
 		for (int p = 0; p < pikachus; p++) {
 			this.pikachuPosition = new ArrayList<Integer>();
@@ -56,7 +56,9 @@ public class LevelGenerator {
 			if (pikachuPosition.equals(playerPosition)) {
 				p=- 1;
 			}else {
-				newGameBoard.addPikachu(new Pikachu(pikachuRow, pikachuColumn));
+				newGameBoard.addCollectable(
+						new Collectable(new Position(pikachuRow, pikachuColumn), new Pikachu())
+				);
 			}
 		}
 		

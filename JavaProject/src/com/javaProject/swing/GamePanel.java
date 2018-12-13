@@ -85,10 +85,10 @@ public class GamePanel extends JPanel implements PropertyChangeListener{
                     "Error Message",
                     JOptionPane.INFORMATION_MESSAGE);
 		}
-		if (evt.getPropertyName() == "player") {
-			Player updatedPlayer = (Player) evt.getNewValue();
-			energyLevel.setText("Energy Level:" + updatedPlayer.getEnergyLevel());
-		}
+//		if (evt.getPropertyName() == "player") {
+//			Player updatedPlayer = (Player) evt.getNewValue();
+//			energyLevel.setText("Energy Level:" + updatedPlayer.getEnergyLevel());
+//		}
 
 	}
 }
