@@ -22,16 +22,17 @@ public class GamePanel extends JPanel implements PropertyChangeListener{
 	private JLabel pokemon;
 	private JButton score;
 	
-//	private BoardTileJToggleButton tile;
 	private BoardTile tile;
 	private GameBoard board;
+	private GUIFrame guiFrame;
 	
 	
 	// Constructor
-	public GamePanel(GameBoard board) {
+	public GamePanel(GUIFrame guiFrame, GameBoard board) {
 		this.board = board;
 		this.rows = board.getLevelRows();
 		this.columns = board.getLevelColumns();
+		this.guiFrame = guiFrame;
 
 		
 		JPanel gamePanel = buildGridPanel();
@@ -76,7 +77,7 @@ public class GamePanel extends JPanel implements PropertyChangeListener{
 		return tile;
 	}
 	
-	// Event listener
+	// Event listeners
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName() == "errorMessage") {
@@ -85,10 +86,17 @@ public class GamePanel extends JPanel implements PropertyChangeListener{
                     "Error Message",
                     JOptionPane.INFORMATION_MESSAGE);
 		}
-//		if (evt.getPropertyName() == "player") {
-//			Player updatedPlayer = (Player) evt.getNewValue();
-//			energyLevel.setText("Energy Level:" + updatedPlayer.getEnergyLevel());
-//		}
+		if (evt.getPropertyName() == "energyLevel") {
+			int updatedEnergyLevel = (int) evt.getNewValue();
+			energyLevel.setText("Energy Level:" + updatedEnergyLevel);
+		}
+		if (evt.getPropertyName() == "GameOver") {
+			JOptionPane.showMessageDialog(this,
+                    evt.getNewValue(),
+                    "Game Over",
+                    JOptionPane.INFORMATION_MESSAGE);
+			guiFrame.endGame();
+		}
 
 	}
 }

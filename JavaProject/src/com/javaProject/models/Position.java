@@ -24,11 +24,9 @@ public class Position {
 	}
 	
 	private boolean isValidPosition(int newRow, int newColumn) {
- 	
 		if (Math.abs(newRow - row) != 1 && Math.abs(newColumn - column) != 1) {
 			return false;
 		}
-
 		return true;
 	}
 

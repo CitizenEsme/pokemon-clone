@@ -8,6 +8,7 @@ public class Game {
 	 * Functionality: Initialize GUI and Game model
 	 */
 	
+	
 	// Constructor
 	public Game() {
 		// Generate model

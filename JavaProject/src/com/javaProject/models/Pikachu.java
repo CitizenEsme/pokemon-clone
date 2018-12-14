@@ -3,10 +3,10 @@ package com.javaProject.models;
 
 public class Pikachu implements CollectableInterface {
 	/*
-	 * Functionality: Creates reward
+	 * Functionality: Creates Pikachu
 	 */
 		
-	// Constructors
+	// Constructor
 	public Pikachu() {
 		
 	}

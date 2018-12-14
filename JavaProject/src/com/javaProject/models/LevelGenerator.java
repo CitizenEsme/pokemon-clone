@@ -8,6 +8,7 @@ public class LevelGenerator {
 	 * Functionality: generate board based on level selected
 	 */
 	
+	
 	// Fields
 	private int levelRows;
 	private int levelColumns;
@@ -26,6 +27,7 @@ public class LevelGenerator {
 	private int sinkholeRow;
 	private int sinkholeColumn;
 	private ArrayList<Integer> sinkholePosition;
+	
 	
 	// Constructor
 	public LevelGenerator() {
@@ -57,8 +59,7 @@ public class LevelGenerator {
 				p=- 1;
 			}else {
 				newGameBoard.addCollectable(
-						new Collectable(new Position(pikachuRow, pikachuColumn), new Pikachu())
-				);
+						new Collectable(new Position(pikachuRow, pikachuColumn), new Pikachu()));
 			}
 		}
 		
@@ -73,11 +74,13 @@ public class LevelGenerator {
 			if (sinkholePosition.equals(playerPosition) || sinkholePosition.equals(pikachuPosition)) {
 				s=- 1;
 			}else {
-				newGameBoard.addSinkhole(new Sinkhole(sinkholeRow, sinkholeColumn));
+				newGameBoard.addOpponent(
+						new Opponent (new Position(sinkholeRow, sinkholeColumn), new Sinkhole()));
 			}
 		}
 		return newGameBoard;
 	}
+	
 	
 	public void setDifficulty(int level) {
 		if (level == 1) {

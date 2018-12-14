@@ -12,10 +12,12 @@ public class MoveAction extends AbstractAction{
 	 * Functionality: Tile buttons react to clicks
 	 */
 	
+	
 	// Fields
 	private int row;
 	private int column;
 	private GameBoard board;
+	
 	
 	// Constructor
 	public MoveAction(GameBoard board, int row, int column) {
