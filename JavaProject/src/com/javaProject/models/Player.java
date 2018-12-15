@@ -7,7 +7,7 @@ public class Player {
 	 */
 	
 	// Fields
-	private int energyLevel = 100;
+	private int energyLevel = 1000;
 	private int pokemonAmount = 0;
 	
 	// Constructor
@@ -31,6 +31,7 @@ public class Player {
 	public void setEnergyLevel(int energyLevel) {
 		this.energyLevel = energyLevel;
 	}
-		
-
+	public void setPokemonAmount(int pokemonAmount) {
+		this.pokemonAmount = pokemonAmount;
+	}
 }

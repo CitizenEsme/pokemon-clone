@@ -21,6 +21,7 @@ public class GameBoard {
 	private final PropertyChangeSupport pcs;
 	private String errorMessage;
 	private String gameoverMessage;
+	private String steppedInSinkhole;
 	
 	
 	// Constructor
@@ -43,14 +44,29 @@ public class GameBoard {
     }
 	
 	public void move(Player playerToMove, Position newPosition) {
+		
 		try {
 			int oldEnergyLevel = this.player.getEnergyLevel();
-			this.playerPosition = this.playerPosition.to(newPosition);
-			this.player.setEnergyLevel(oldEnergyLevel-10);
+			int oldPokemonAmount = this.player.getPokemonAmount();
+			
+			if (hasPikachuAt(newPosition)) {
+				this.player.setPokemonAmount(oldPokemonAmount+1);
+				int newPokemonAmount = this.player.getPokemonAmount();
+				
+				this.pcs.firePropertyChange("pokemonAmount", oldPokemonAmount, newPokemonAmount);
+//				this.pcs.firePropertyChange("pokemonClicked", null, newPosition);
+			}else if(hasSinkholeAt(newPosition)) {
+				this.steppedInSinkhole = "Stepped in sinkhole and fell to your dead.";
+				this.pcs.firePropertyChange("Sinkhole", "", this.steppedInSinkhole);
+				
+			}else {
+				this.playerPosition = this.playerPosition.to(newPosition);
+				this.player.setEnergyLevel(oldEnergyLevel-10);
+			}
 			int newEnergyLevel = this.player.getEnergyLevel();
 			
 			this.pcs.firePropertyChange("playerPosition", null, this.playerPosition);
-			this.pcs.firePropertyChange("gameboard", null, this);
+//			this.pcs.firePropertyChange("gameboard", null, this);
 			
 			if (newEnergyLevel <= 0) {
 				this.gameoverMessage = "Game Over";
@@ -64,6 +80,7 @@ public class GameBoard {
             this.pcs.firePropertyChange("errorMessage", "", this.errorMessage);			
 		}
 	}
+	
 
 	// Stores Objects in GameBoard
 	public void addPlayer(Player newPlayer, Position playerPosition) {

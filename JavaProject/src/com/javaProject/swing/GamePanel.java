@@ -1,11 +1,14 @@
 package com.javaProject.swing;
 
 import java.awt.GridLayout;
+import java.awt.event.*;
 import java.beans.*;
 import javax.swing.*;
 
 import com.javaProject.models.GameBoard;
 import com.javaProject.models.Player;
+import com.javaProject.models.highscores.HighScoreManager;
+import com.javaProject.models.highscores.Score;
 
 public class GamePanel extends JPanel implements PropertyChangeListener{
 	/*
@@ -20,10 +23,12 @@ public class GamePanel extends JPanel implements PropertyChangeListener{
 	private int columns;
 	private JLabel energyLevel;
 	private JLabel pokemon;
-	private JButton score;
+	private JButton highScores;
 	
 	private BoardTile tile;
 	private GameBoard board;
+	private Score score;
+	private HighScoreManager highScoreManager;
 	private GUIFrame guiFrame;
 	
 	
@@ -47,9 +52,7 @@ public class GamePanel extends JPanel implements PropertyChangeListener{
 		pokemon = new JLabel("Pokemon: " + board.getPlayer().getPokemonAmount());
 		rightPanel.add(pokemon);
 		
-		score = new JButton("Score: " + board.getPlayer().getPokemonAmount());
-		rightPanel.add(score);
-		
+		rightPanel.add(buildHighScoreButton());
 		
 		add(rightPanel);
 		
@@ -77,25 +80,59 @@ public class GamePanel extends JPanel implements PropertyChangeListener{
 		return tile;
 	}
 	
+	private JButton buildHighScoreButton () {
+		this.highScores = new JButton("High Scores");
+		this.highScoreManager = new HighScoreManager();
+		highScoreManager.addScore(board.getPlayer().getPokemonAmount());
+		
+		
+		highScores.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(
+						null,
+                        highScoreManager.getHighscoreString());
+			}	
+		});
+		return highScores;
+	}
+	
+	
 	// Event listeners
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName() == "errorMessage") {
-			JOptionPane.showMessageDialog(this,
+			JOptionPane.showMessageDialog(
+					this,
                     evt.getNewValue(),
                     "Error Message",
                     JOptionPane.INFORMATION_MESSAGE);
 		}
 		if (evt.getPropertyName() == "energyLevel") {
 			int updatedEnergyLevel = (int) evt.getNewValue();
-			energyLevel.setText("Energy Level:" + updatedEnergyLevel);
+			this.energyLevel.setText("Energy Level:" + updatedEnergyLevel);
+		}
+		if (evt.getPropertyName() == "pokemonAmount") {
+			int updatedPokemonAmount = (int) evt.getNewValue();
+			this.pokemon.setText("Pokemon:" + updatedPokemonAmount);
 		}
 		if (evt.getPropertyName() == "GameOver") {
-			JOptionPane.showMessageDialog(this,
+			JOptionPane.showMessageDialog(
+					this,
                     evt.getNewValue(),
                     "Game Over",
                     JOptionPane.INFORMATION_MESSAGE);
-			guiFrame.endGame();
+			this.highScoreManager.addScore(board.getPlayer().getPokemonAmount());
+			this.guiFrame.endGame();
+		}
+		if (evt.getPropertyName() == "Sinkhole") {
+			JOptionPane.showMessageDialog(
+					this,
+                    evt.getNewValue(),
+                    "Stepped in sinkhole and fell to your dead.",
+                    JOptionPane.INFORMATION_MESSAGE);
+			this.highScoreManager.addScore(board.getPlayer().getPokemonAmount());
+			this.guiFrame.endGame();
 		}
 
 	}

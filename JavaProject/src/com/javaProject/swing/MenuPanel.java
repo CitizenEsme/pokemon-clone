@@ -95,7 +95,7 @@ public class MenuPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				levelGenerator.setDifficulty((int)model1.getValue());
-				guiFrame.switchPanels();
+				guiFrame.switchToMenuPanel();
 			}	
 		});
 		startButton.setPreferredSize(new Dimension(100, 50));

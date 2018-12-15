@@ -29,6 +29,8 @@ public class Position {
 		}
 		return true;
 	}
+	
+	
 
 	public int getRow() {
 		return row;

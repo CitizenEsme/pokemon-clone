@@ -132,6 +132,10 @@ public class BoardTile extends JButton implements PropertyChangeListener{
 		return totalDifference < 2;
 	}
 	
+//	private void setTileDisable(Position position) {
+//		getTile(position).setdisabled();
+//	}
+	
 	
 	// Property change listener
 	@Override
@@ -143,6 +147,9 @@ public class BoardTile extends JButton implements PropertyChangeListener{
 			case "playerPosition":
 				render((Position) evt.getNewValue());
 				break;
+//			case "pokemonClicked":
+//				setTileDisabled((Position) evt.getNewValue());
+//				break;
 		}
 	}
 }

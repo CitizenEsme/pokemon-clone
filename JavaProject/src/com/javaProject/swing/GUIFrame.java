@@ -6,7 +6,6 @@ import javax.swing.*;
 
 import com.javaProject.models.LevelGenerator;
 
-import javafx.stage.WindowEvent;
 
 
 public class GUIFrame extends JFrame{
@@ -41,14 +40,14 @@ public class GUIFrame extends JFrame{
 		setVisible(true);
 	}
 	
-	
-	public void switchPanels(){
+	public void switchToMenuPanel(){
 		gamePanel = new GamePanel(this, generator.getGameBoard());
 		cards.add(gamePanel, GAMESCREEN);
 		
 		CardLayout cl = (CardLayout)(cards.getLayout());
 		cl.show(cards, GAMESCREEN);
 	}
+	
 	
 	public void endGame() {
 		System.exit(0);
