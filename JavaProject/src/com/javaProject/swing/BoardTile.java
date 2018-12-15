@@ -34,7 +34,6 @@ public class BoardTile extends JButton implements PropertyChangeListener{
 		
 		board.addPropertyChangeListener(this);
 				
-//		render(board);
 		
 		render(board.getPlayerPosition());
 	}
@@ -69,35 +68,6 @@ public class BoardTile extends JButton implements PropertyChangeListener{
 			}
 		}
 	}
-//	private void render (GameBoard gameboard) {
-//		
-//		setIcon(null);
-//		setBackground(null);
-//		
-//		if (this.isTileVisible(gameboard.getPlayerPosition()) == false) {
-//			setBackground(Color.DARK_GRAY);
-//			setOpaque(true);
-//			setBorderPainted(false);
-//		} else {
-//			
-//			this.renderPlayer(gameboard);
-//			this.renderPikachu(gameboard);
-//			this.renderSinkhole(gameboard);
-//			
-//		}
-//	}
-//	
-//	private void renderPlayer(GameBoard board) {
-//		if (board.getPlayerPosition().getRow() == this.position.getRow()
-//				&& board.getPlayerPosition().getColumn() == this.position.getColumn()) {
-//			try {
-//				Image img = ImageIO.read(getClass().getResource("/30x30player.png"));
-//				setIcon(new ImageIcon(img));
-//			}catch(Exception ex) {
-//				System.out.println(ex);
-//			}
-//		}
-//	}
 	
 	private void renderPikachu(GameBoard board) {
 		if (board.hasPikachuAt(this.position)) {
@@ -131,25 +101,25 @@ public class BoardTile extends JButton implements PropertyChangeListener{
 		int totalDifference = rowDifference + columnDifference;
 		return totalDifference < 2;
 	}
-	
-//	private void setTileDisable(Position position) {
-//		getTile(position).setdisabled();
-//	}
+		
+	private void setTileDisabled(Position tilePosition) {
+		if (this.position.getRow() == tilePosition.getRow() 
+				&& this.position.getColumn() == tilePosition.getColumn()) {
+			setEnabled(false);
+		}
+	}
 	
 	
 	// Property change listener
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		switch (evt.getPropertyName()) {
-//			case "gameboard":
-//				render((GameBoard) evt.getNewValue());
-//				break;
 			case "playerPosition":
 				render((Position) evt.getNewValue());
 				break;
-//			case "pokemonClicked":
-//				setTileDisabled((Position) evt.getNewValue());
-//				break;
+			case "DisableTile":
+				setTileDisabled((Position) evt.getNewValue());
+				break;
 		}
 	}
 }

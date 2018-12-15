@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class GameBoard {
 	/*
-	 *  Functionality: track board objects
+	 *  Functionality: Creates board and tracks board objects
 	 */
 	
 	
@@ -35,6 +35,39 @@ public class GameBoard {
 	}
 	
 	
+	// Store Objects in GameBoard
+	public void addPlayer(Player newPlayer, Position playerPosition) {
+		this.player = newPlayer;		
+		this.playerPosition = playerPosition;
+	}
+	public void addCollectable(Collectable collectable) {
+		this.collectables.add(collectable);
+	}
+	public boolean hasPikachuAt(Position positionToCheck) {
+		for (Collectable collectable : this.collectables) {
+			if (collectable.getPosition().getRow() == positionToCheck.getRow()
+					&& collectable.getPosition().getColumn() == positionToCheck.getColumn()
+					&& collectable.getCollectableObject() instanceof Pikachu) {
+				return true;
+			}
+		}
+		return false;
+	}
+	public void addOpponent(Opponent opponent) {
+		this.opponents.add(opponent);
+	}
+	public boolean hasSinkholeAt(Position positionToCheck) {
+		for (Opponent opponent : this.opponents) {
+			if(opponent.getPosition().getRow() == positionToCheck.getRow()
+					&& opponent.getPosition().getColumn() == positionToCheck.getColumn()
+					&& opponent.getOpponentObject() instanceof Sinkhole) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
 	// Observable properties
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
         this.pcs.addPropertyChangeListener(listener);
@@ -54,9 +87,10 @@ public class GameBoard {
 				int newPokemonAmount = this.player.getPokemonAmount();
 				
 				this.pcs.firePropertyChange("pokemonAmount", oldPokemonAmount, newPokemonAmount);
-//				this.pcs.firePropertyChange("pokemonClicked", null, newPosition);
+				this.pcs.firePropertyChange("DisableTile", null, newPosition);
+
 			}else if(hasSinkholeAt(newPosition)) {
-				this.steppedInSinkhole = "Stepped in sinkhole and fell to your dead.";
+				this.steppedInSinkhole = "Player fell into sinkhole and is now dead.";
 				this.pcs.firePropertyChange("Sinkhole", "", this.steppedInSinkhole);
 				
 			}else {
@@ -64,9 +98,7 @@ public class GameBoard {
 				this.player.setEnergyLevel(oldEnergyLevel-10);
 			}
 			int newEnergyLevel = this.player.getEnergyLevel();
-			
 			this.pcs.firePropertyChange("playerPosition", null, this.playerPosition);
-//			this.pcs.firePropertyChange("gameboard", null, this);
 			
 			if (newEnergyLevel <= 0) {
 				this.gameoverMessage = "Game Over";
@@ -82,41 +114,6 @@ public class GameBoard {
 	}
 	
 
-	// Stores Objects in GameBoard
-	public void addPlayer(Player newPlayer, Position playerPosition) {
-		this.player = newPlayer;		
-		this.playerPosition = playerPosition;
-	}
-	
-	public void addCollectable(Collectable collectable) {
-		this.collectables.add(collectable);
-	}
-	public boolean hasPikachuAt(Position positionToCheck) {
-		for (Collectable collectable : this.collectables) {
-			if (collectable.getPosition().getRow() == positionToCheck.getRow()
-					&& collectable.getPosition().getColumn() == positionToCheck.getColumn()
-					&& collectable.getCollectableObject() instanceof Pikachu) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public void addOpponent(Opponent opponent) {
-		this.opponents.add(opponent);
-	}
-	public boolean hasSinkholeAt(Position positionToCheck) {
-		for (Opponent opponent : this.opponents) {
-			if(opponent.getPosition().getRow() == positionToCheck.getRow()
-					&& opponent.getPosition().getColumn() == positionToCheck.getColumn()
-					&& opponent.getOpponentObject() instanceof Sinkhole) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	
 	// Getters
 	public Player getPlayer() {
 		return player;

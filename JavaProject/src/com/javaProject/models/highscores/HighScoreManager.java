@@ -11,7 +11,7 @@ public class HighScoreManager {
 	
 	// Fields
 	private ArrayList<Score> scores;
-	private static final String HIGHSCORE_FILE = "topscores.txt";
+	private static final String HIGHSCORE_FILE = "TopScores.txt";
 	
 	ObjectOutputStream outputStream = null;
     ObjectInputStream inputStream = null;
@@ -105,7 +105,7 @@ public class HighScoreManager {
 		}
 		
 		while (i < scoresListLenght) {
-			highscoreString += (i + 1) + ".\t" + scores.get(i).getScore() + "\n";
+			highscoreString += "Player " + (i + 1) + ".\t" + scores.get(i).getScore() + "\n";
 		    i++;
 		}
 		

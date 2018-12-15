@@ -1,5 +1,6 @@
 package com.javaProject.models;
 
+import java.util.ArrayList;
 
 public class Player {
 	/*
@@ -10,13 +11,25 @@ public class Player {
 	private int energyLevel = 1000;
 	private int pokemonAmount = 0;
 	
+	private ArrayList<Collectable> pikachus;
+	
 	// Constructor
 	public Player() {
 		
 	}
-	public Player(int energyLevel) {
-		this.energyLevel = energyLevel;
+
+	
+	
+	
+	
+	private void addToCollection(Collectable pikachu) {
+		 
 	}
+	
+	
+	
+	
+	
 	
 	// Getters
 	public int getEnergyLevel() {
