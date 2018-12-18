@@ -8,7 +8,7 @@ public class Player {
 	 */
 	
 	// Fields
-	private int energyLevel = 1000;
+	private int energyLevel = 500;
 	private int pokemonAmount = 0;
 	
 	private ArrayList<Collectable> pikachus;
